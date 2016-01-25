@@ -12,3 +12,8 @@ Spring Boot test project
 
 - mvn package
 - mvn spring-boot:run
+
+### To package as fat jar and run
+
+- mvn package
+- java -jar target/myproject-0.0.1-SNAPSHOT.jar

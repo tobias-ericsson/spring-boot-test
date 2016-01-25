@@ -20,6 +20,16 @@
         </dependency>
     </dependencies>
 
+    <!-- needed for repackage as fat jar -->	
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
     <!-- Additional lines to be added here... -->
 
 </project>
