@@ -6,6 +6,7 @@
     <script src="js/stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
+        var name = "Stomper";
 
         function setConnected(connected) {
             document.getElementById('connect').disabled = connected;
@@ -20,9 +21,9 @@
             stompClient.connect({}, function(frame) {
                 setConnected(true);
                 console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/greetings', function(greeting){
-                    console.log(greeting);
-                    showGreeting(JSON.parse(greeting.body).message);
+                stompClient.subscribe('/topic/greetings', function(response){
+                    console.log(response);
+                    showMessage(JSON.parse(response.body).message);
                 });
             });
         }
@@ -40,7 +41,7 @@
             stompClient.send("/app/stomp", {}, JSON.stringify({ 'message': name }));
         }
 
-        function showGreeting(message) {
+        function showMessage(message) {
             var response = document.getElementById('response');
             var p = document.createElement('p');
             p.style.wordWrap = 'break-word';
@@ -54,7 +55,7 @@
     Javascript and reload this page!</h2></noscript>
 <div>
     <div>
-        <button id="connect" onclick="connect();">Connect 2</button>
+        <button id="connect" onclick="connect();">Connect</button>
         <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
     </div>
     <div id="conversationDiv">
