@@ -26,7 +26,7 @@ public class RedisConnector {
         listOps.leftPush(LIST_NAME, message);
     }
 
-    public List<String> fetchLatest(int size) {
-        return listOps.range(LIST_NAME, 0, size);
+    public List<String> fetchRange(int start, int end) {
+        return listOps.range(LIST_NAME, start, end);
     }
 }

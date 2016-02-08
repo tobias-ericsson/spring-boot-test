@@ -1,11 +1,10 @@
 var stompClient = null;
-var names = ["Stomper", "Tester", "Fester","Blizz"];
-var myName = names[Math.floor(Math.random() * 4)];
-console.log("myName "+myName);
+var names = ["Stomper", "White Horse", "Gullag","Blizz","White Wolf"];
+var myName = names[Math.floor(Math.random() * 5)];
 
         function setConnected(connected) {
-            document.getElementById('connect').disabled = connected;
-            document.getElementById('disconnect').disabled = !connected;
+            document.getElementById('connect').style.display = connected ? 'none' : 'inline';
+            document.getElementById('disconnect').style.display = connected ? 'inline' : 'none';
             document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
             document.getElementById('response').innerHTML = '';
         }
@@ -16,6 +15,14 @@ console.log("myName "+myName);
             stompClient.connect({}, function(frame) {
                 setConnected(true);
                 console.log('Connected: ' + frame);
+                microAjax("/api/all", function (res) {
+                    var responseJson = JSON.parse(res);
+                    var k = responseJson.length;
+                    while (k--) {
+                         showMessage(responseJson[k]);
+                    }
+                });
+
                 stompClient.subscribe('/topic/messages', function(response){
                     console.log(response);
                     showMessage(JSON.parse(response.body).message);
@@ -45,9 +52,10 @@ console.log("myName "+myName);
         }
 
         function showMessage(message) {
-            var response = document.getElementById('response');
+            var section = document.getElementById('response');
             var p = document.createElement('p');
             p.style.wordWrap = 'break-word';
             p.appendChild(document.createTextNode(message));
-            response.appendChild(p);
+            //section.appendChild(p);
+            section.insertBefore( p, section.firstChild );
         }

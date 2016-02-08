@@ -25,7 +25,7 @@ public class WebSocketController {
         String message = requestMessage.getMessage();
         redisConnector.insert(message);
 
-        List<String> latest = redisConnector.fetchLatest(1);
+        List<String> latest = redisConnector.fetchRange(0,0);
         message = latest.get(0);
 
         Thread.sleep(200); // simulated delay
