@@ -2,11 +2,14 @@
 <html>
 <head>
     <title>Hello WebSocket</title>
+    <link rel="stylesheet" href="css/style.css" />
     <script src="js/sockjs-0.3.4.js"></script>
     <script src="js/stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
-        var name = "Stomper";
+        var names = ["Stomper", "Tester", "Fester","Blizz"];
+        var myName = names[Math.floor(Math.random() * 4)];
+        console.log("myName "+myName);
 
         function setConnected(connected) {
             document.getElementById('connect').disabled = connected;
@@ -16,6 +19,8 @@
         }
 
         function connect() {
+            document.getElementById('connect').name = "Connect as "+myName;
+            document.getElementById('connect').value = "Connect as "+myName;
             var socket = new SockJS('/stomp');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
@@ -33,12 +38,20 @@
                 stompClient.disconnect();
             }
             setConnected(false);
+            document.getElementById('header').innerHTML = "Hello "+myName;
+            document.getElementById('connect').innerHTML = "Connect as "+myName;
             console.log("Disconnected");
         }
 
-        function sendName() {
-            var name = document.getElementById('name').value;
-            stompClient.send("/app/stomp", {}, JSON.stringify({ 'message': name }));
+        function logout() {
+            window.location.href = "/logout";
+            console.log("logged out");
+        }
+
+        function sendMessage() {
+            var message = document.getElementById('message').value;
+            var name = myName;
+            stompClient.send("/app/stomp", {}, JSON.stringify({ 'message': name+": "+message }));
         }
 
         function showMessage(message) {
@@ -53,16 +66,21 @@
 <body onload="disconnect()">
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
     Javascript and reload this page!</h2></noscript>
+
+<center>
 <div>
+    <h1 id="header">Hello</h1>
     <div>
         <button id="connect" onclick="connect();">Connect</button>
         <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+        <button id="logout" onclick="logout();">Logout</button>
     </div>
     <div id="conversationDiv">
-        <label>What is your name?</label><input type="text" id="name" />
-        <button id="sendName" onclick="sendName();">Send</button>
+        <label>Message: </label><input type="text" id="message" />
+        <button id="sendMessage" onclick="sendMessage();">Send</button>
         <p id="response"></p>
     </div>
 </div>
+</center>
 </body>
 </html>

@@ -2,7 +2,7 @@ package integration;
 
 import java.util.Arrays;
 
-import com.to.papa.web.Start;
+import com.to.papa.Start;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

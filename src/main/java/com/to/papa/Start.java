@@ -1,4 +1,4 @@
-package com.to.papa.web;
+package com.to.papa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

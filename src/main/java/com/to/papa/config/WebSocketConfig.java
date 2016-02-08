@@ -1,4 +1,4 @@
-package com.to.papa.web;
+package com.to.papa.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -20,5 +20,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
         config.setApplicationDestinationPrefixes("/app");
         config.enableSimpleBroker("/topic", "/queue");
     }
+
 
 }
