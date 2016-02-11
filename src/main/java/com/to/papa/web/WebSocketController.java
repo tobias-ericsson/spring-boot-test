@@ -3,6 +3,8 @@ package com.to.papa.web;
 import com.to.papa.db.RedisConnector;
 import com.to.papa.pojo.RequestMessage;
 import com.to.papa.pojo.ResponseMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -14,6 +16,9 @@ import java.util.List;
 
 @Controller
 public class WebSocketController {
+
+    private static final Logger logger = LoggerFactory
+			.getLogger(WebSocketController.class);
 
     @Autowired
     RedisConnector redisConnector;
@@ -27,6 +32,8 @@ public class WebSocketController {
 
         List<String> latest = redisConnector.fetchRange(0,0);
         message = latest.get(0);
+
+        logger.info(message);
 
         Thread.sleep(200); // simulated delay
         ResponseMessage responseMessage = new ResponseMessage();
