@@ -6,6 +6,7 @@ import com.to.papa.pojo.ResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,9 @@ public class WebSocketController {
     @Autowired
     RedisConnector redisConnector;
 
+    @Autowired
+    CounterService counterService;
+
     @MessageMapping("/stomp")
     @SendTo("/topic/messages")
     public ResponseMessage postMessage(RequestMessage requestMessage) throws Exception {
@@ -34,6 +38,8 @@ public class WebSocketController {
         message = latest.get(0);
 
         logger.info(message);
+
+        counterService.increment("services.webSocketController.postMessage.invoked");
 
         Thread.sleep(200); // simulated delay
         ResponseMessage responseMessage = new ResponseMessage();
