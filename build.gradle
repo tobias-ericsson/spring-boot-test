@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.3.RELEASE")
+    }
+}
+
+plugins {
+    id "com.gorylenko.gradle-git-properties" version "1.4.16"
+}
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'spring-boot'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+dependencies {
+    //spring-boot
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-redis")
+    compile("org.springframework.boot:spring-boot-starter-websocket")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-mustache")
+    compile("org.springframework.boot:spring-boot-devtools")
+
+    compile("org.springframework.session:spring-session")
+    compile("org.springframework:spring-messaging")
+
+    //spring-security
+    compile("org.springframework.security:spring-security-web")
+    compile("org.springframework.security:spring-security-config")
+
+    //test
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
