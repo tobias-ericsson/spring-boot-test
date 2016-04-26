@@ -17,3 +17,13 @@ Spring Boot test project
 
 - mvn package
 - java -jar target/myproject-0.0.1-SNAPSHOT.jar
+
+### To check health and metrics
+
+spring-boot-starter-actuator endpoints
+
+/info
+/env
+/health
+/metrics
+/trace
