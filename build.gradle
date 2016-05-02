@@ -26,6 +26,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-redis")
     compile("org.springframework.boot:spring-boot-starter-websocket")
+    //for /info /health /metrics and more...
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-mustache")
     compile("org.springframework.boot:spring-boot-devtools")
